@@ -165,5 +165,5 @@ var Api_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "api/api.proto",
+	Metadata: "api.proto",
 }

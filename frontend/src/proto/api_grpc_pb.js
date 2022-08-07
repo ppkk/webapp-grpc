@@ -49,10 +49,10 @@ function deserialize_api_RepeatNewsRequest(buffer_arg) {
 }
 
 
-var ApiServiceService = exports.ApiServiceService = {
+var ApiService = exports.ApiService = {
   // unary call
 login: {
-    path: '/api.ApiService/Login',
+    path: '/api.Api/Login',
     requestStream: false,
     responseStream: false,
     requestType: api_pb.LoginRequest,
@@ -64,7 +64,7 @@ login: {
   },
   // server streaming call
 streamNews: {
-    path: '/api.ApiService/StreamNews',
+    path: '/api.Api/StreamNews',
     requestStream: false,
     responseStream: true,
     requestType: api_pb.RepeatNewsRequest,
@@ -76,4 +76,4 @@ streamNews: {
   },
 };
 
-exports.ApiServiceClient = grpc.makeGenericClientConstructor(ApiServiceService);
+exports.ApiClient = grpc.makeGenericClientConstructor(ApiService);
