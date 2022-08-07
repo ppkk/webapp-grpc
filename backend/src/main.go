@@ -8,7 +8,7 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
-	grpc_api "com/github/stepasite/webapp-grpc/grpc/proto"
+	grpc_api "github.com/stepasite/webapp-grpc/grpc/api"
 )
 
 var (
@@ -20,8 +20,8 @@ type server struct {
 }
 
 func (s *server) Login(ctx context.Context, in *grpc_api.LoginRequest) (*grpc_api.LoginReply, error) {
-	log.Printf("Received: %v", in.GetName())
-	return &grpc_api.LoginReply{Token: "Token: " + in.GetName()}, nil
+	log.Printf("Received: %v", in.GetLoginToken())
+	return &grpc_api.LoginReply{Status: 200, Token: "Token: " + in.GetLoginToken()}, nil
 }
 
 func main() {

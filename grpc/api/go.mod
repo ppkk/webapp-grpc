@@ -1,4 +1,4 @@
-module github.com/stepasite/webapp-grpc/grpc/proto
+module github.com/stepasite/webapp-grpc/grpc/api
 
 go 1.19
 

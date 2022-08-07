@@ -2,14 +2,11 @@ syntax = "proto3";
 
 package api;
 
-option go_package = "github.com/stepasite/webapp-grpc/grpc/proto;grpc_api";
+option go_package = "github.com/stepasite/webapp-grpc/grpc/api;grpc_api";
 
-service LoginService {
+service ApiService {
   // unary call
   rpc Login(LoginRequest) returns (LoginReply);
-}
-
-service StreamingNewsService {
   // server streaming call
   rpc StreamNews(RepeatNewsRequest) returns (stream NewsReply);
 }
@@ -19,7 +16,8 @@ message LoginRequest {
 }
 
 message RepeatNewsRequest {
-  int32 count = 1;
+  string token = 1;
+  int32 count = 2;
 }
 
 message LoginReply {

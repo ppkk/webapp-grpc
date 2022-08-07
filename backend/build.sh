@@ -1,3 +1,3 @@
 #!/bin/bash
 
-GO111MODULE=on && go build src/main.go
+go build src/main.go
