@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api;
 
-option go_package = "com.github/stepasite/webapp-grpc/grpc/proto/api;grpc_api";
+option go_package = "github.com/stepasite/webapp-grpc/grpc/proto/api;grpc_api";
 
 service LoginService {
   // unary call
