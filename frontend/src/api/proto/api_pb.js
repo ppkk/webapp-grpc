@@ -135,7 +135,7 @@ proto.api.LoginRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.api.LoginRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    logintoken: jspb.Message.getFieldWithDefault(msg, 1, "")
+    loginToken: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -174,7 +174,7 @@ proto.api.LoginRequest.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setLogintoken(value);
+      msg.setLoginToken(value);
       break;
     default:
       reader.skipField();
@@ -205,7 +205,7 @@ proto.api.LoginRequest.prototype.serializeBinary = function() {
  */
 proto.api.LoginRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getLogintoken();
+  f = message.getLoginToken();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -216,10 +216,10 @@ proto.api.LoginRequest.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string loginToken = 1;
+ * optional string login_token = 1;
  * @return {string}
  */
-proto.api.LoginRequest.prototype.getLogintoken = function() {
+proto.api.LoginRequest.prototype.getLoginToken = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -228,7 +228,7 @@ proto.api.LoginRequest.prototype.getLogintoken = function() {
  * @param {string} value
  * @return {!proto.api.LoginRequest} returns this
  */
-proto.api.LoginRequest.prototype.setLogintoken = function(value) {
+proto.api.LoginRequest.prototype.setLoginToken = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 

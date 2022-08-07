@@ -12,7 +12,7 @@ service Api {
 }
 
 message LoginRequest {
-  string loginToken = 1;
+  string login_token = 1;
 }
 
 message RepeatNewsRequest {

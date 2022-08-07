@@ -7,8 +7,8 @@
 import * as jspb from "google-protobuf";
 
 export class LoginRequest extends jspb.Message { 
-    getLogintoken(): string;
-    setLogintoken(value: string): LoginRequest;
+    getLoginToken(): string;
+    setLoginToken(value: string): LoginRequest;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): LoginRequest.AsObject;
@@ -22,7 +22,7 @@ export class LoginRequest extends jspb.Message {
 
 export namespace LoginRequest {
     export type AsObject = {
-        logintoken: string,
+        loginToken: string,
     }
 }
 

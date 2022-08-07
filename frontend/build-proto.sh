@@ -2,7 +2,7 @@
 
 BASEDIR=$(dirname "$0")
 SRCDIR=$BASEDIR/../grpc/api
-DESTDIR=$BASEDIR/src/proto
+DESTDIR=$BASEDIR/src/api/proto
 
 $BASEDIR/node_modules/.bin/grpc_tools_node_protoc\
   --js_out=import_style=commonjs,binary:$DESTDIR\
