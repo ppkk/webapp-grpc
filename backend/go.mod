@@ -6,6 +6,7 @@ require google.golang.org/grpc v1.48.0
 
 require (
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/stepasite/webapp-grpc/grpc/api v0.0.0-20220807131615-601f8a20f626 // indirect
 	github.com/stepasite/webapp-grpc/grpc/proto v0.0.0-20220807124752-3592cea8d9c8 // indirect
 	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect
 	golang.org/x/sys v0.0.0-20210119212857-b64e53b001e4 // indirect

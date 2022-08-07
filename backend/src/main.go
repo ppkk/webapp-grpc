@@ -16,7 +16,7 @@ var (
 )
 
 type server struct {
-	grpc_api.UnimplementedLoginServer
+	grpc_api.UnimplementedApiServiceServer
 }
 
 func (s *server) Login(ctx context.Context, in *grpc_api.LoginRequest) (*grpc_api.LoginReply, error) {
@@ -31,7 +31,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	grpc_api.RegisterLoginServer(s, &server{})
+	grpc_api.RegisterApiServiceServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
