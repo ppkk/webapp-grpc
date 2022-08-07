@@ -4,7 +4,7 @@ package api;
 
 option go_package = "github.com/stepasite/webapp-grpc/grpc/api;grpc_api";
 
-service ApiService {
+service Api {
   // unary call
   rpc Login(LoginRequest) returns (LoginReply);
   // server streaming call

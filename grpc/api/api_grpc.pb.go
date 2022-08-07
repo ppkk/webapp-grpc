@@ -14,39 +14,39 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// ApiServiceClient is the client API for ApiService service.
+// ApiClient is the client API for Api service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ApiServiceClient interface {
+type ApiClient interface {
 	// unary call
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error)
 	// server streaming call
-	StreamNews(ctx context.Context, in *RepeatNewsRequest, opts ...grpc.CallOption) (ApiService_StreamNewsClient, error)
+	StreamNews(ctx context.Context, in *RepeatNewsRequest, opts ...grpc.CallOption) (Api_StreamNewsClient, error)
 }
 
-type apiServiceClient struct {
+type apiClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewApiServiceClient(cc grpc.ClientConnInterface) ApiServiceClient {
-	return &apiServiceClient{cc}
+func NewApiClient(cc grpc.ClientConnInterface) ApiClient {
+	return &apiClient{cc}
 }
 
-func (c *apiServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error) {
+func (c *apiClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error) {
 	out := new(LoginReply)
-	err := c.cc.Invoke(ctx, "/api.ApiService/Login", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.Api/Login", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *apiServiceClient) StreamNews(ctx context.Context, in *RepeatNewsRequest, opts ...grpc.CallOption) (ApiService_StreamNewsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &ApiService_ServiceDesc.Streams[0], "/api.ApiService/StreamNews", opts...)
+func (c *apiClient) StreamNews(ctx context.Context, in *RepeatNewsRequest, opts ...grpc.CallOption) (Api_StreamNewsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Api_ServiceDesc.Streams[0], "/api.Api/StreamNews", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &apiServiceStreamNewsClient{stream}
+	x := &apiStreamNewsClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -56,16 +56,16 @@ func (c *apiServiceClient) StreamNews(ctx context.Context, in *RepeatNewsRequest
 	return x, nil
 }
 
-type ApiService_StreamNewsClient interface {
+type Api_StreamNewsClient interface {
 	Recv() (*NewsReply, error)
 	grpc.ClientStream
 }
 
-type apiServiceStreamNewsClient struct {
+type apiStreamNewsClient struct {
 	grpc.ClientStream
 }
 
-func (x *apiServiceStreamNewsClient) Recv() (*NewsReply, error) {
+func (x *apiStreamNewsClient) Recv() (*NewsReply, error) {
 	m := new(NewsReply)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -73,95 +73,95 @@ func (x *apiServiceStreamNewsClient) Recv() (*NewsReply, error) {
 	return m, nil
 }
 
-// ApiServiceServer is the server API for ApiService service.
-// All implementations must embed UnimplementedApiServiceServer
+// ApiServer is the server API for Api service.
+// All implementations must embed UnimplementedApiServer
 // for forward compatibility
-type ApiServiceServer interface {
+type ApiServer interface {
 	// unary call
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
 	// server streaming call
-	StreamNews(*RepeatNewsRequest, ApiService_StreamNewsServer) error
-	mustEmbedUnimplementedApiServiceServer()
+	StreamNews(*RepeatNewsRequest, Api_StreamNewsServer) error
+	mustEmbedUnimplementedApiServer()
 }
 
-// UnimplementedApiServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedApiServiceServer struct {
+// UnimplementedApiServer must be embedded to have forward compatible implementations.
+type UnimplementedApiServer struct {
 }
 
-func (UnimplementedApiServiceServer) Login(context.Context, *LoginRequest) (*LoginReply, error) {
+func (UnimplementedApiServer) Login(context.Context, *LoginRequest) (*LoginReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedApiServiceServer) StreamNews(*RepeatNewsRequest, ApiService_StreamNewsServer) error {
+func (UnimplementedApiServer) StreamNews(*RepeatNewsRequest, Api_StreamNewsServer) error {
 	return status.Errorf(codes.Unimplemented, "method StreamNews not implemented")
 }
-func (UnimplementedApiServiceServer) mustEmbedUnimplementedApiServiceServer() {}
+func (UnimplementedApiServer) mustEmbedUnimplementedApiServer() {}
 
-// UnsafeApiServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ApiServiceServer will
+// UnsafeApiServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ApiServer will
 // result in compilation errors.
-type UnsafeApiServiceServer interface {
-	mustEmbedUnimplementedApiServiceServer()
+type UnsafeApiServer interface {
+	mustEmbedUnimplementedApiServer()
 }
 
-func RegisterApiServiceServer(s grpc.ServiceRegistrar, srv ApiServiceServer) {
-	s.RegisterService(&ApiService_ServiceDesc, srv)
+func RegisterApiServer(s grpc.ServiceRegistrar, srv ApiServer) {
+	s.RegisterService(&Api_ServiceDesc, srv)
 }
 
-func _ApiService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Api_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ApiServiceServer).Login(ctx, in)
+		return srv.(ApiServer).Login(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.ApiService/Login",
+		FullMethod: "/api.Api/Login",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ApiServiceServer).Login(ctx, req.(*LoginRequest))
+		return srv.(ApiServer).Login(ctx, req.(*LoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ApiService_StreamNews_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _Api_StreamNews_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(RepeatNewsRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(ApiServiceServer).StreamNews(m, &apiServiceStreamNewsServer{stream})
+	return srv.(ApiServer).StreamNews(m, &apiStreamNewsServer{stream})
 }
 
-type ApiService_StreamNewsServer interface {
+type Api_StreamNewsServer interface {
 	Send(*NewsReply) error
 	grpc.ServerStream
 }
 
-type apiServiceStreamNewsServer struct {
+type apiStreamNewsServer struct {
 	grpc.ServerStream
 }
 
-func (x *apiServiceStreamNewsServer) Send(m *NewsReply) error {
+func (x *apiStreamNewsServer) Send(m *NewsReply) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-// ApiService_ServiceDesc is the grpc.ServiceDesc for ApiService service.
+// Api_ServiceDesc is the grpc.ServiceDesc for Api service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ApiService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.ApiService",
-	HandlerType: (*ApiServiceServer)(nil),
+var Api_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.Api",
+	HandlerType: (*ApiServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Login",
-			Handler:    _ApiService_Login_Handler,
+			Handler:    _Api_Login_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "StreamNews",
-			Handler:       _ApiService_StreamNews_Handler,
+			Handler:       _Api_StreamNews_Handler,
 			ServerStreams: true,
 		},
 	},
