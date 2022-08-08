@@ -49,6 +49,12 @@ func login(w http.ResponseWriter, r *http.Request) {
 		email: credentials.Email,
 		expiresAt: expiresAt,
 	}
+
+	http.SetCookie(w, &http.Cookie{
+		Name: "session_id",
+		Value: uuid,
+		Expires: expiresAt,
+	})
 }
 
 func Run() {
