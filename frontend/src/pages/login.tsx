@@ -1,9 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { login } from '../api/login';
 
 export const Login = () => {
 	const [state, setState] = React.useState({email: '', password: ''});
-	const navigate = useNavigate();
 
 	const onEmailChange = (event: any) => {
 		setState({email: event.target.value, password: state.password});
@@ -15,7 +14,8 @@ export const Login = () => {
 
         const onLoginSubmit = (event: any) => {
 		event.preventDefault();
-		navigate("/home");
+		login(state.email, state.password);
+		
 	}
 
 	return (

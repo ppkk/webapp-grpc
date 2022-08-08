@@ -1,20 +1,12 @@
 #!/bin/bash
 
 BASEDIR=$(dirname "$0")
+export PATH=$PATH:$BASEDIR/node_modules/.bin
 SRCDIR=$BASEDIR/../grpc/api
 DESTDIR=$BASEDIR/src/api/proto
 
-$BASEDIR/node_modules/.bin/grpc_tools_node_protoc\
-  --js_out=import_style=commonjs,binary:$DESTDIR\
-  --grpc_out=$DESTDIR\
-  -I $SRCDIR\
-  $SRCDIR/api.proto
-
-$BASEDIR/node_modules/.bin/grpc_tools_node_protoc\
-  --plugin=protoc-gen-ts=$BASEDIR/node_modules/.bin/protoc-gen-ts\
-  --ts_out=$DESTDIR\
-  -I $SRCDIR\
-  $SRCDIR/api.proto
-
+protoc -I $SRCDIR $SRCDIR/api.proto\
+  --js_out=import_style=commonjs+dts,binary:$DESTDIR\
+  --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:$DESTDIR
 
 

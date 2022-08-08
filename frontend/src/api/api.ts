@@ -1,6 +1,3 @@
-import grpc from '@grpc/grpc-js';
-import { ApiClient } from './proto/api_grpc_pb';
+import { ApiClient } from './proto/api_grpc_web_pb';
 
-export default new ApiClient(
-	`localhost:50051`,
-	grpc.credentials.createInsecure());
+export default new ApiClient(`localhost:50051`, null, null);
