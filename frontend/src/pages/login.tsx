@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../api/login';
 
 export const Login = () => {
+	const navigate = useNavigate();
 	const [state, setState] = React.useState({email: '', password: ''});
 
 	const onEmailChange = (event: any) => {
@@ -12,10 +14,14 @@ export const Login = () => {
 		setState({email: state.email, password: event.target.value});
 	}
 
-        const onLoginSubmit = (event: any) => {
+        const onLoginSubmit = async (event: any) => {
 		event.preventDefault();
-		login(state.email, state.password);
-		
+		let response = await login(state.email, state.password);
+		if (response.status == 200) {
+			navigate('/home');
+		} else {
+			alert(response.status);
+		}
 	}
 
 	return (

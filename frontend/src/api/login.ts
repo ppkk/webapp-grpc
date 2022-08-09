@@ -3,14 +3,11 @@ import axios from 'axios';
 
 import { LoginRequest, LoginReply } from './proto/api_pb';
 
-export function login(email: string, password: string) {
-	(async () => {
-		let response = await axios.post('/login', {email, password});	
-		console.log(response.status);
-	})();
+export const login = async (email: string, password: string): Promise<any> => {
+	return axios.post('/login', {email, password});	
 }
 
-function loginGrpc(loginToken: string): Promise<LoginReply> {
+export const loginGrpc = async (loginToken: string): Promise<LoginReply> => {
 	let loginRequest = new LoginRequest();
 	loginRequest.setLoginToken(loginToken);
 	return new Promise<LoginReply> ( (resolve, reject) => {

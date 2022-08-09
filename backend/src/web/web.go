@@ -43,7 +43,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	uuid := uuid.New().String()
-	expiresAt := time.Now()
+	expiresAt := time.Now().Add(time.Duration(3600 * float64(time.Second)))
 
 	sessions[uuid] = session{
 		email: credentials.Email,
