@@ -20,8 +20,18 @@ type server struct {
 }
 
 func (s *server) Login(ctx context.Context, in *grpc_api.LoginRequest) (*grpc_api.LoginReply, error) {
-	log.Printf("Received: %v", in.GetLoginToken())
+	log.Printf("Login Received: %v", in.GetLoginToken())
 	return &grpc_api.LoginReply{Status: 200, Token: "Token: " + in.GetLoginToken()}, nil
+}
+
+func (s *server) StreamNews(in *grpc_api.RepeatNewsRequest, stream grpc_api.Api_StreamNewsServer) error {
+	log.Printf("StreamNews Received: %v", in.GetCount())
+	for id:=int32(1); id<=in.GetCount(); id++ {
+		if err := stream.Send(&grpc_api.NewsReply{Id: id, Message: "Foo bar:" + string(id)}); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func Run() {
