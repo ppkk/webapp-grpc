@@ -1,3 +1,3 @@
 import { ApiClient } from './proto/api_grpc_web_pb';
 
-export default new ApiClient(`localhost:50051`, null, null);
+export default new ApiClient(`http://localhost:8080`, null, null);

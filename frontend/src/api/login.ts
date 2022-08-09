@@ -7,7 +7,7 @@ export const login = async (email: string, password: string): Promise<any> => {
 	return axios.post('/login', {email, password});	
 }
 
-export const loginGrpc = async (loginToken: string): Promise<LoginReply> => {
+export const grpcLogin = async (loginToken: string): Promise<LoginReply> => {
 	let loginRequest = new LoginRequest();
 	loginRequest.setLoginToken(loginToken);
 	return new Promise<LoginReply> ( (resolve, reject) => {

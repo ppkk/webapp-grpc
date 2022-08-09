@@ -58,7 +58,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 }
 
 func Run() {
-	port := ":8080"
+	port := ":9090"
 	http.HandleFunc("/login", login)
 	http.Handle("/", http.FileServer(http.Dir("web")));
 	log.Printf("web server listening at %v", port)
