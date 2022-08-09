@@ -37,7 +37,7 @@ export const Login = () => {
 				placeholder="Enter password"
 			/>
 			<br />
-			<button type="submit">Submit</button>
+			<input type="submit" value="submit" />
 		</form>
 	);
 }

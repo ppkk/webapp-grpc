@@ -9,8 +9,8 @@ import (
 )
 
 var validCredentials = map[string]string{
-	"sparta": "goal",
-	"slavia": "nogoal",
+	"sparta@sparta.cz": "goal",
+	"slavia@slavia.cz": "nogoal",
 }
 
 var sessions = map[string]session{}
@@ -60,6 +60,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 func Run() {
 	port := ":8080"
 	http.HandleFunc("/login", login)
+	http.Handle("/", http.FileServer(http.Dir("web")));
 	log.Printf("web server listening at %v", port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }

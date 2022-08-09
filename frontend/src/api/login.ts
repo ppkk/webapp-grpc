@@ -6,9 +6,7 @@ import { LoginRequest, LoginReply } from './proto/api_pb';
 export function login(email: string, password: string) {
 	(async () => {
 		let response = await axios.post('/login', {email, password});	
-		if (response.status == 200) {
-			console.log(response.status);
-		}
+		console.log(response.status);
 	})();
 }
 
