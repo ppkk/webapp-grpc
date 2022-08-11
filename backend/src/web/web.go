@@ -35,10 +35,10 @@ func login(w http.ResponseWriter, r *http.Request) {
 	uuid := uuid.New().String()
 	expiresAt := time.Now().Add(time.Duration(3600 * float64(time.Second)))
 
-	common.Sessions[uuid] = common.Session{
+	common.Sessions.Store(uuid, common.Session{
 		Email: credentials.Email,
 		ExpiresAt: expiresAt,
-	}
+	})
 
 	http.SetCookie(w, &http.Cookie{
 		Name: "session_id",

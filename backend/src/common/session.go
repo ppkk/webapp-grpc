@@ -2,9 +2,10 @@ package common
 
 import (
 	"time"
+	"sync"
 )
 
-var Sessions = map[string]Session{}
+var Sessions = sync.Map{}
 
 type Session struct {
         Email string
