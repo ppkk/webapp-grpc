@@ -11,18 +11,14 @@ service Api {
   rpc StreamNews(RepeatNewsRequest) returns (stream NewsReply);
 }
 
-message LoginRequest {
-  string login_token = 1;
-}
+message LoginRequest{}
 
 message RepeatNewsRequest {
-  string token = 1;
-  int32 count = 2;
+  int32 count = 1;
 }
 
 message LoginReply {
   int32 status = 1;
-  string token = 2;
 }
 
 message NewsReply {
