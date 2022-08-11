@@ -6,7 +6,7 @@ SRCDIR=$BASEDIR/../grpc/api
 DESTDIR=$BASEDIR/src/api/proto
 
 protoc -I $SRCDIR $SRCDIR/api.proto\
-  --js_out=import_style=commonjs+dts,binary:$DESTDIR\
+  --plugin=protoc-gen-ts=$BASEDIR/node_modules/.bin/protoc-gen-ts\
+  --js_out=import_style=commonjs,binary:$DESTDIR\
   --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:$DESTDIR
-
 

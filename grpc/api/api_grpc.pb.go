@@ -18,8 +18,6 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ApiClient interface {
-	// unary call
-	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error)
 	// server streaming call
 	StreamNews(ctx context.Context, in *RepeatNewsRequest, opts ...grpc.CallOption) (Api_StreamNewsClient, error)
 }
@@ -30,15 +28,6 @@ type apiClient struct {
 
 func NewApiClient(cc grpc.ClientConnInterface) ApiClient {
 	return &apiClient{cc}
-}
-
-func (c *apiClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error) {
-	out := new(LoginReply)
-	err := c.cc.Invoke(ctx, "/api.Api/Login", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *apiClient) StreamNews(ctx context.Context, in *RepeatNewsRequest, opts ...grpc.CallOption) (Api_StreamNewsClient, error) {
@@ -77,8 +66,6 @@ func (x *apiStreamNewsClient) Recv() (*NewsReply, error) {
 // All implementations must embed UnimplementedApiServer
 // for forward compatibility
 type ApiServer interface {
-	// unary call
-	Login(context.Context, *LoginRequest) (*LoginReply, error)
 	// server streaming call
 	StreamNews(*RepeatNewsRequest, Api_StreamNewsServer) error
 	mustEmbedUnimplementedApiServer()
@@ -88,9 +75,6 @@ type ApiServer interface {
 type UnimplementedApiServer struct {
 }
 
-func (UnimplementedApiServer) Login(context.Context, *LoginRequest) (*LoginReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
-}
 func (UnimplementedApiServer) StreamNews(*RepeatNewsRequest, Api_StreamNewsServer) error {
 	return status.Errorf(codes.Unimplemented, "method StreamNews not implemented")
 }
@@ -105,24 +89,6 @@ type UnsafeApiServer interface {
 
 func RegisterApiServer(s grpc.ServiceRegistrar, srv ApiServer) {
 	s.RegisterService(&Api_ServiceDesc, srv)
-}
-
-func _Api_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoginRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ApiServer).Login(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.Api/Login",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ApiServer).Login(ctx, req.(*LoginRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Api_StreamNews_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -152,12 +118,7 @@ func (x *apiStreamNewsServer) Send(m *NewsReply) error {
 var Api_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "api.Api",
 	HandlerType: (*ApiServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Login",
-			Handler:    _Api_Login_Handler,
-		},
-	},
+	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "StreamNews",

@@ -73,67 +73,6 @@ proto.api.ApiPromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.LoginRequest,
- *   !proto.api.LoginReply>}
- */
-const methodDescriptor_Api_Login = new grpc.web.MethodDescriptor(
-  '/api.Api/Login',
-  grpc.web.MethodType.UNARY,
-  proto.api.LoginRequest,
-  proto.api.LoginReply,
-  /**
-   * @param {!proto.api.LoginRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.api.LoginReply.deserializeBinary
-);
-
-
-/**
- * @param {!proto.api.LoginRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.api.LoginReply)}
- *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.LoginReply>|undefined}
- *     The XHR Node Readable Stream
- */
-proto.api.ApiClient.prototype.login =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/api.Api/Login',
-      request,
-      metadata || {},
-      methodDescriptor_Api_Login,
-      callback);
-};
-
-
-/**
- * @param {!proto.api.LoginRequest} request The
- *     request proto
- * @param {?Object<string, string>=} metadata User defined
- *     call metadata
- * @return {!Promise<!proto.api.LoginReply>}
- *     Promise that resolves to the response
- */
-proto.api.ApiPromiseClient.prototype.login =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/api.Api/Login',
-      request,
-      metadata || {},
-      methodDescriptor_Api_Login);
-};
-
-
-/**
- * @const
- * @type {!grpc.web.MethodDescriptor<
  *   !proto.api.RepeatNewsRequest,
  *   !proto.api.NewsReply>}
  */

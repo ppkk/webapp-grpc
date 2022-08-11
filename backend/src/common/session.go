@@ -12,7 +12,7 @@ type Session struct {
         ExpiresAt time.Time
 }
 
-func (s Session) isExpired() bool {
+func (s Session) IsExpired() bool {
         return s.ExpiresAt.Before(time.Now())
 }
 

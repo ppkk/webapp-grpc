@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login, grpcLogin } from '../api/login';
+import { login } from '../api/login';
 
 export const Login = () => {
 	const navigate = useNavigate();
@@ -18,8 +18,6 @@ export const Login = () => {
 		event.preventDefault();
 		let response = await login(state.email, state.password);
 		if (response.status == 200) {
-			let grpcResponse = await grpcLogin('token_foo_bar_whatever');
-			console.log(grpcResponse);
 			navigate('/home');
 		} else {
 			alert(response.status);
