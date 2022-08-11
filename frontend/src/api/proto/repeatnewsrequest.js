@@ -69,8 +69,7 @@ proto.api.RepeatNewsRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.api.RepeatNewsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    token: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    count: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    count: jspb.Message.getFieldWithDefault(msg, 1, 0)
   };
 
   if (includeInstance) {
@@ -108,10 +107,6 @@ proto.api.RepeatNewsRequest.deserializeBinaryFromReader = function(msg, reader) 
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setToken(value);
-      break;
-    case 2:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCount(value);
       break;
@@ -144,47 +139,22 @@ proto.api.RepeatNewsRequest.prototype.serializeBinary = function() {
  */
 proto.api.RepeatNewsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getToken();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getCount();
+  if (f !== 0) {
+    writer.writeInt32(
       1,
       f
     );
   }
-  f = message.getCount();
-  if (f !== 0) {
-    writer.writeInt32(
-      2,
-      f
-    );
-  }
 };
 
 
 /**
- * optional string token = 1;
- * @return {string}
- */
-proto.api.RepeatNewsRequest.prototype.getToken = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.api.RepeatNewsRequest} returns this
- */
-proto.api.RepeatNewsRequest.prototype.setToken = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional int32 count = 2;
+ * optional int32 count = 1;
  * @return {number}
  */
 proto.api.RepeatNewsRequest.prototype.getCount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
@@ -193,7 +163,7 @@ proto.api.RepeatNewsRequest.prototype.getCount = function() {
  * @return {!proto.api.RepeatNewsRequest} returns this
  */
 proto.api.RepeatNewsRequest.prototype.setCount = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 

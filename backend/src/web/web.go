@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 	"github.com/google/uuid"
+	common "com/github/stepasite/webapp-grpc/backend/src/common"
 )
 
 var validCredentials = map[string]string{
@@ -13,20 +14,9 @@ var validCredentials = map[string]string{
 	"slavia@slavia.cz": "nogoal",
 }
 
-var sessions = map[string]session{}
-
 type Credentials struct {
 	Email string `json:"email"`
 	Password string `json:"password"`
-}
-
-type session struct {
-	email string
-	expiresAt time.Time
-}
-
-func (s session) isExpired() bool {
-	return s.expiresAt.Before(time.Now())
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
@@ -45,9 +35,9 @@ func login(w http.ResponseWriter, r *http.Request) {
 	uuid := uuid.New().String()
 	expiresAt := time.Now().Add(time.Duration(3600 * float64(time.Second)))
 
-	sessions[uuid] = session{
-		email: credentials.Email,
-		expiresAt: expiresAt,
+	common.Sessions[uuid] = common.Session{
+		Email: credentials.Email,
+		ExpiresAt: expiresAt,
 	}
 
 	http.SetCookie(w, &http.Cookie{

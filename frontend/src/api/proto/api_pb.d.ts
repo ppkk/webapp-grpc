@@ -3,9 +3,6 @@ import * as jspb from 'google-protobuf'
 
 
 export class LoginRequest extends jspb.Message {
-  getLoginToken(): string;
-  setLoginToken(value: string): LoginRequest;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): LoginRequest.AsObject;
   static toObject(includeInstance: boolean, msg: LoginRequest): LoginRequest.AsObject;
@@ -16,14 +13,10 @@ export class LoginRequest extends jspb.Message {
 
 export namespace LoginRequest {
   export type AsObject = {
-    loginToken: string,
   }
 }
 
 export class RepeatNewsRequest extends jspb.Message {
-  getToken(): string;
-  setToken(value: string): RepeatNewsRequest;
-
   getCount(): number;
   setCount(value: number): RepeatNewsRequest;
 
@@ -37,7 +30,6 @@ export class RepeatNewsRequest extends jspb.Message {
 
 export namespace RepeatNewsRequest {
   export type AsObject = {
-    token: string,
     count: number,
   }
 }
@@ -45,9 +37,6 @@ export namespace RepeatNewsRequest {
 export class LoginReply extends jspb.Message {
   getStatus(): number;
   setStatus(value: number): LoginReply;
-
-  getToken(): string;
-  setToken(value: string): LoginReply;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): LoginReply.AsObject;
@@ -60,7 +49,6 @@ export class LoginReply extends jspb.Message {
 export namespace LoginReply {
   export type AsObject = {
     status: number,
-    token: string,
   }
 }
 

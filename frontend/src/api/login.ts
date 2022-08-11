@@ -9,7 +9,6 @@ export const login = async (email: string, password: string): Promise<any> => {
 
 export const grpcLogin = async (loginToken: string): Promise<LoginReply> => {
 	let loginRequest = new LoginRequest();
-	loginRequest.setLoginToken(loginToken);
 	return new Promise<LoginReply> ( (resolve, reject) => {
 		api.login(loginRequest, undefined, (err, loginReply) => {
 			if (err) {
