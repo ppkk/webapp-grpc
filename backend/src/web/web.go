@@ -45,6 +45,8 @@ func login(w http.ResponseWriter, r *http.Request) {
 		Value: uuid,
 		Expires: expiresAt,
 	})
+
+	w.Write([]byte(uuid));
 }
 
 func Run() {
