@@ -7,11 +7,13 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 
+	common "com/github/stepasite/webapp-grpc/backend/src/common"
+
+	grpc_api "github.com/stepasite/webapp-grpc/grpc/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
-	grpc_api "github.com/stepasite/webapp-grpc/grpc/api"
-	common "com/github/stepasite/webapp-grpc/backend/src/common"
 )
 
 var (
@@ -23,11 +25,11 @@ type server struct {
 }
 
 func sessionFromContext(ctx context.Context) (*common.Session, error) {
-        md,ok := metadata.FromIncomingContext(ctx)
-        if !ok {
-                return nil, errors.New("No grpc metadata provided")
-        }
-        tokenArray := md.Get("GRPC_TOKEN")
+	md, ok := metadata.FromIncomingContext(ctx)
+	if !ok {
+		return nil, errors.New("No grpc metadata provided")
+	}
+	tokenArray := md.Get("GRPC_TOKEN")
 	if len(tokenArray) == 1 {
 		token := tokenArray[0]
 		result, resultOK := common.Sessions.Load(token)
@@ -45,10 +47,12 @@ func (s *server) StreamNews(in *grpc_api.RepeatNewsRequest, stream grpc_api.Api_
 		return err
 	}
 	log.Printf("StreamNews Received: %v", in.GetCount())
-	for id:=int32(1); id<=in.GetCount(); id++ {
+	for id := int32(1); id <= in.GetCount(); id++ {
+		fmt.Println("streaming, ", id)
 		if err := stream.Send(&grpc_api.NewsReply{Id: id, Message: "Foo bar:" + string(id)}); err != nil {
 			return err
 		}
+		time.Sleep(time.Second)
 	}
 	return nil
 }

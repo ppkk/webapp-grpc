@@ -11,3 +11,12 @@ export const streamNews = (count: number, grpcToken: string) => {
 	});
 }
 
+export const streamNewsCb = (count: number, grpcToken: string) => {
+	let r = new RepeatNewsRequest();
+	r.setCount(count);
+	let stream = api.streamNews(r, {'GRPC_TOKEN': grpcToken});
+	stream.on('data', (response) => {
+		console.log(response);
+	});
+}
+
