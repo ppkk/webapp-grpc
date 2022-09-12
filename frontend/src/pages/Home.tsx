@@ -35,14 +35,26 @@ class ShoppingList extends React.Component<MyProps, MyState> {
   }
 
 
+
+  
 export const Home = () => {
     const { token } = useContext(LoginContext);
 
 	const [getUpdate, setUpdate] = useState(0)
+	const [constructorHasRun, setConstructorHasRun] = useState(false);
 
-	useEffect(() => {
+	const constructor = () => {
+		if (constructorHasRun) return;
+		console.log("Inline constructor()");
 		streamNews(7, token, (resp) => {console.log("received " + resp.getId()); setUpdate(resp.getId())});
-	});
+		setConstructorHasRun(true);
+	  };
+	
+	constructor();
+
+	// useEffect(() => {
+	// 	streamNews(7, token, (resp) => {console.log("received " + resp.getId()); setUpdate(resp.getId())});
+	// });
 
 	let constval = 44;
 
