@@ -40,7 +40,9 @@ export const Home = () => {
 
 	const [getUpdate, setUpdate] = useState(0)
 
-	streamNews(7, token, (resp) => {console.log("received " + resp.getId()); setUpdate(resp.getId())});
+	useEffect(() => {
+		streamNews(7, token, (resp) => {console.log("received " + resp.getId()); setUpdate(resp.getId())});
+	});
 
 	let constval = 44;
 
