@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { streamNews } from '../api/news';
 import { LoginContext } from '../context/LoginContext';
 
@@ -6,6 +6,7 @@ type MyProps = {
 	// using `interface` is also ok
 	name: string;
 	getValue: () => number;
+	val: () => number;
 };
 type MyState = {
   	count: number; // like this
@@ -26,7 +27,7 @@ class ShoppingList extends React.Component<MyProps, MyState> {
 		  <ul>
 			<li>Instagram</li>
 			<li>{ this.props.getValue() }</li>
-			<li>Oculus</li>
+			<li>{ this.props.val() }</li>
 		  </ul>
 		</div>
 	  );
@@ -36,14 +37,17 @@ class ShoppingList extends React.Component<MyProps, MyState> {
 
 export const Home = () => {
     const { token } = useContext(LoginContext);
-	streamNews(7, token, (resp) => console.log("callback " + resp.getId()));
+
+	const [getUpdate, setUpdate] = useState(0)
+
+	streamNews(7, token, (resp) => {console.log("received " + resp.getId()); setUpdate(resp.getId())});
 
 	let constval = 44;
 
 	console.log("called stream, returning")
 	return (<div>
 		Home
-		<ShoppingList name="Seznam" getValue={() => constval }/>
+		<ShoppingList name="Seznam" getValue={() => constval } val={() => getUpdate}/>
 		</div>);
 }
 
