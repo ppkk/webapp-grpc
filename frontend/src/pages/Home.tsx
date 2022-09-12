@@ -16,7 +16,8 @@ class ShoppingList extends React.Component<MyProps, MyState> {
 		this.state = {
 			count: 0,
 		};
-	}
+		
+    }
 	render() {
 	  return (
 		<div className="shopping-list">
@@ -34,8 +35,9 @@ class ShoppingList extends React.Component<MyProps, MyState> {
 
 export const Home = () => {
     const { token } = useContext(LoginContext);
-	useEffect(() => { streamNews(7, token); });
+	streamNews(7, token, (resp) => console.log("callback " + resp.getId()));
 
+	console.log("called stream, returning")
 	return (<div>
 		Home
 		<ShoppingList name="Seznam" />
