@@ -50,7 +50,7 @@ func (s *server) StreamNews(in *grpc_api.RepeatNewsRequest, stream grpc_api.Api_
 	}
 	log.Printf("StreamNews request Received: %v", in.GetCount())
 	for id := int32(1); id <= in.GetCount(); id++ {
-		log.Println("streaming, ", id)
+		log.Println("streaming, ", id, " of ", in.GetCount())
 		if err := stream.Send(&grpc_api.NewsReply{Id: id, Message: "Foo bar:" + string(id)}); err != nil {
 			log.Println("Failed to send stream: ", err)
 			return err

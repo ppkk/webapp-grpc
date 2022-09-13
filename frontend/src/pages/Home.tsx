@@ -2,17 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { streamNews } from '../api/news';
 import { LoginContext } from '../context/LoginContext';
 
-type MyProps = {
+type TimerProps = {
 	// using `interface` is also ok
 	name: string;
 	val: () => number;
 };
-type MyState = {
+type TimerState = {
   	count: number; // like this
 };
 
-class Timer extends React.Component<MyProps, MyState> {
-	constructor(props: MyProps) {
+class Timer extends React.Component<TimerProps, TimerState> {
+	constructor(props: TimerProps) {
 		super(props);
 		this.state = {
 			count: 0,
@@ -31,7 +31,12 @@ class Timer extends React.Component<MyProps, MyState> {
 	}
   }
 
-  export const Element = () => {
+  type ElementProps = {
+	count: number;
+	waitMs: number;
+};
+
+  export const Element = (props: ElementProps) => {
     const { token } = useContext(LoginContext);
 
 	const [update, setUpdate] = useState(0)
@@ -40,7 +45,7 @@ class Timer extends React.Component<MyProps, MyState> {
 	const constructor = () => {
 		if (constructorHasRun) return;
 		console.log("Inline  Elem constructor()");
-		streamNews(60, 300, token, (resp) => {console.log("Elem received " + resp.getId()); setUpdate(resp.getId())});
+		streamNews(props.count, props.waitMs, token, (resp) => {console.log("Elem received " + resp.getId()); setUpdate(resp.getId())});
 		setConstructorHasRun(true);
 	  };
 	
@@ -82,23 +87,23 @@ export const Home = () => {
 			</tr>
 			<tr>
 				<td> Goals: </td>
-				<td> <Element /> </td>
-				<td> <Element /> </td>
+				<td> <Element count={50} waitMs={300}/> </td>
+				<td> <Element count={10} waitMs={1500} /> </td>
 			</tr>
 			<tr>
 				<td> Shots on goal: </td>
-				<td> <Element /> </td>
-				<td> <Element /> </td>
+				<td> <Element count={200} waitMs={100} /> </td>
+				<td> <Element count={100} waitMs={200} /> </td>
 			</tr>
 			<tr>
 				<td> Shots wide: </td>
-				<td> <Element /> </td>
-				<td> <Element /> </td>
+				<td> <Element count={400} waitMs={150} /> </td>
+				<td> <Element count={200} waitMs={300} /> </td>
 			</tr>
 			<tr>
 				<td> Corners: </td>
-				<td> <Element /> </td>
-				<td> <Element /> </td>
+				<td> <Element count={50} waitMs={300} /> </td>
+				<td> <Element count={50} waitMs={300} /> </td>
 			</tr>
 		</table>
 		
