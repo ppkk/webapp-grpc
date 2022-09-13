@@ -42,14 +42,17 @@ func sessionFromContext(ctx context.Context) (*common.Session, error) {
 }
 
 func (s *server) StreamNews(in *grpc_api.RepeatNewsRequest, stream grpc_api.Api_StreamNewsServer) error {
+	log.Printf("StreamNews called")
 	_, err := sessionFromContext(stream.Context())
 	if err != nil {
+		log.Println("Error getting from context: ", err)
 		return err
 	}
-	log.Printf("StreamNews Received: %v", in.GetCount())
+	log.Printf("StreamNews request Received: %v", in.GetCount())
 	for id := int32(1); id <= in.GetCount(); id++ {
-		fmt.Println("streaming, ", id)
+		log.Println("streaming, ", id)
 		if err := stream.Send(&grpc_api.NewsReply{Id: id, Message: "Foo bar:" + string(id)}); err != nil {
+			log.Println("Failed to send stream: ", err)
 			return err
 		}
 		time.Sleep(time.Second)

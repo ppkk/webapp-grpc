@@ -5,14 +5,13 @@ import { LoginContext } from '../context/LoginContext';
 type MyProps = {
 	// using `interface` is also ok
 	name: string;
-	getValue: () => number;
 	val: () => number;
 };
 type MyState = {
   	count: number; // like this
 };
 
-class ShoppingList extends React.Component<MyProps, MyState> {
+class Timer extends React.Component<MyProps, MyState> {
 	constructor(props: MyProps) {
 		super(props);
 		this.state = {
@@ -22,11 +21,9 @@ class ShoppingList extends React.Component<MyProps, MyState> {
     }
 	render() {
 	  return (
-		<div className="shopping-list">
-		  <h1>Shopping List for {this.props.name}</h1>
+		<div className="timer">
+		  <h1>{this.props.name}</h1>
 		  <ul>
-			<li>Instagram</li>
-			<li>{ this.props.getValue() }</li>
 			<li>{ this.props.val() }</li>
 		  </ul>
 		</div>
@@ -34,34 +31,77 @@ class ShoppingList extends React.Component<MyProps, MyState> {
 	}
   }
 
-
-
-  
-export const Home = () => {
+  export const Element = () => {
     const { token } = useContext(LoginContext);
 
-	const [getUpdate, setUpdate] = useState(0)
+	const [update, setUpdate] = useState(0)
 	const [constructorHasRun, setConstructorHasRun] = useState(false);
 
 	const constructor = () => {
 		if (constructorHasRun) return;
-		console.log("Inline constructor()");
+		console.log("Inline  Elem constructor()");
+		streamNews(7, token, (resp) => {console.log("Elem received " + resp.getId()); setUpdate(resp.getId())});
+		setConstructorHasRun(true);
+	  };
+	
+	constructor();
+
+	console.log("Rendering Elem")
+	return (<div>
+		{update}
+		</div>);
+
+}
+  
+export const Home = () => {
+    const { token } = useContext(LoginContext);
+
+	const [update, setUpdate] = useState(0)
+	const [constructorHasRun, setConstructorHasRun] = useState(false);
+
+	const constructor = () => {
+		if (constructorHasRun) return;
+		console.log("Inline Home constructor()");
 		streamNews(7, token, (resp) => {console.log("received " + resp.getId()); setUpdate(resp.getId())});
 		setConstructorHasRun(true);
 	  };
 	
 	constructor();
 
-	// useEffect(() => {
-	// 	streamNews(7, token, (resp) => {console.log("received " + resp.getId()); setUpdate(resp.getId())});
-	// });
-
-	let constval = 44;
-
 	console.log("called stream, returning")
 	return (<div>
-		Home
-		<ShoppingList name="Seznam" getValue={() => constval } val={() => getUpdate}/>
+		Stream created in parent element, using class component:
+		<Timer name="Seconds elapsed" val={() => update}/>
+	    <hr></hr>
+		Stream created in each table element, using functional component:
+		<table>
+			<tr>
+				<th>  </th>
+				<th> Sparta </th>
+				<th> Slavia </th>
+			</tr>
+			<tr>
+				<td> Goals: </td>
+				<td> <Element /> </td>
+				<td> <Element /> </td>
+			</tr>
+			<tr>
+				<td> Shots on goal: </td>
+				<td> <Element /> </td>
+				<td> <Element /> </td>
+			</tr>
+			<tr>
+				<td> Shots wide: </td>
+				<td> <Element /> </td>
+				<td> <Element /> </td>
+			</tr>
+			<tr>
+				<td> Corners: </td>
+				<td> <Element /> </td>
+				<td> <Element /> </td>
+			</tr>
+		</table>
+		
 		</div>);
 }
 
