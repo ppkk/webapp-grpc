@@ -1,11 +1,11 @@
-module com/github/stepasite/webapp-grpc/backend
+module github.com/ppkk/webapp-grpc/backend
 
 go 1.19
 
 require (
-	github.com/google/uuid v1.1.2
-	github.com/stepasite/webapp-grpc/grpc/api v0.0.0-20220811150224-85eb47a9ce08
-	google.golang.org/grpc v1.48.0
+	github.com/google/uuid v1.3.0
+	github.com/ppkk/webapp-grpc/grpc/api v0.0.0-20220913121339-f4d375302883
+	google.golang.org/grpc v1.49.0
 )
 
 require (

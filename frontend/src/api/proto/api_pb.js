@@ -90,7 +90,8 @@ proto.api.RepeatNewsRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.api.RepeatNewsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    count: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    count: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    waitMs: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -131,6 +132,10 @@ proto.api.RepeatNewsRequest.deserializeBinaryFromReader = function(msg, reader) 
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCount(value);
       break;
+    case 2:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setWaitMs(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -167,6 +172,13 @@ proto.api.RepeatNewsRequest.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
+  f = message.getWaitMs();
+  if (f !== 0) {
+    writer.writeInt32(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -185,6 +197,24 @@ proto.api.RepeatNewsRequest.prototype.getCount = function() {
  */
 proto.api.RepeatNewsRequest.prototype.setCount = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional int32 wait_ms = 2;
+ * @return {number}
+ */
+proto.api.RepeatNewsRequest.prototype.getWaitMs = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.api.RepeatNewsRequest} returns this
+ */
+proto.api.RepeatNewsRequest.prototype.setWaitMs = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 

@@ -1,8 +1,8 @@
 package main
 
 import (
-	grpc "com/github/stepasite/webapp-grpc/backend/src/grpc"
-	web "com/github/stepasite/webapp-grpc/backend/src/web"
+	grpc "github.com/ppkk/webapp-grpc/backend/src/grpc"
+	web "github.com/ppkk/webapp-grpc/backend/src/web"
 )
 
 func main() {

@@ -9,9 +9,9 @@ import (
 	"net"
 	"time"
 
-	common "com/github/stepasite/webapp-grpc/backend/src/common"
+	common "github.com/ppkk/webapp-grpc/backend/src/common"
 
-	grpc_api "github.com/stepasite/webapp-grpc/grpc/api"
+	grpc_api "github.com/ppkk/webapp-grpc/grpc/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
@@ -55,7 +55,7 @@ func (s *server) StreamNews(in *grpc_api.RepeatNewsRequest, stream grpc_api.Api_
 			log.Println("Failed to send stream: ", err)
 			return err
 		}
-		time.Sleep(time.Second)
+		time.Sleep(time.Duration(in.GetWaitMs()) * time.Millisecond)
 	}
 	return nil
 }

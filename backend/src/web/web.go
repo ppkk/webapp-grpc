@@ -5,8 +5,9 @@ import (
 	"log"
 	"net/http"
 	"time"
+
 	"github.com/google/uuid"
-	common "com/github/stepasite/webapp-grpc/backend/src/common"
+	common "github.com/ppkk/webapp-grpc/backend/src/common"
 )
 
 var validCredentials = map[string]string{
@@ -15,7 +16,7 @@ var validCredentials = map[string]string{
 }
 
 type Credentials struct {
-	Email string `json:"email"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
@@ -26,7 +27,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	expectedPassword, ok := validCredentials[credentials.Email];
+	expectedPassword, ok := validCredentials[credentials.Email]
 	if !ok || expectedPassword != credentials.Password {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
@@ -36,23 +37,23 @@ func login(w http.ResponseWriter, r *http.Request) {
 	expiresAt := time.Now().Add(time.Duration(3600 * float64(time.Second)))
 
 	common.Sessions.Store(uuid, common.Session{
-		Email: credentials.Email,
+		Email:     credentials.Email,
 		ExpiresAt: expiresAt,
 	})
 
 	http.SetCookie(w, &http.Cookie{
-		Name: "session_id",
-		Value: uuid,
+		Name:    "session_id",
+		Value:   uuid,
 		Expires: expiresAt,
 	})
 
-	w.Write([]byte(uuid));
+	w.Write([]byte(uuid))
 }
 
 func Run() {
 	port := ":9090"
 	http.HandleFunc("/login", login)
-	http.Handle("/", http.FileServer(http.Dir("web")));
+	http.Handle("/", http.FileServer(http.Dir("web")))
 	log.Printf("web server listening at %v", port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }

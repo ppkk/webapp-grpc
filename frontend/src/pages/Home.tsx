@@ -40,7 +40,7 @@ class Timer extends React.Component<MyProps, MyState> {
 	const constructor = () => {
 		if (constructorHasRun) return;
 		console.log("Inline  Elem constructor()");
-		streamNews(7, token, (resp) => {console.log("Elem received " + resp.getId()); setUpdate(resp.getId())});
+		streamNews(60, 300, token, (resp) => {console.log("Elem received " + resp.getId()); setUpdate(resp.getId())});
 		setConstructorHasRun(true);
 	  };
 	
@@ -62,7 +62,7 @@ export const Home = () => {
 	const constructor = () => {
 		if (constructorHasRun) return;
 		console.log("Inline Home constructor()");
-		streamNews(7, token, (resp) => {console.log("received " + resp.getId()); setUpdate(resp.getId())});
+		streamNews(30, 1000, token, (resp) => {console.log("received " + resp.getId()); setUpdate(resp.getId())});
 		setConstructorHasRun(true);
 	  };
 	

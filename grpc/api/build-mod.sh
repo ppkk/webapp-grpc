@@ -1,4 +1,4 @@
 #!/bin/bash
 
-go build github.com/stepasite/webapp-grpc/grpc/api
+go build github.com/ppkk/webapp-grpc/grpc/api
 

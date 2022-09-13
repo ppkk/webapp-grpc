@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api;
 
-option go_package = "github.com/stepasite/webapp-grpc/grpc/api;grpc_api";
+option go_package = "github.com/ppkk/webapp-grpc/grpc/api;grpc_api";
 
 service Api {
   // server streaming call
@@ -11,6 +11,7 @@ service Api {
 
 message RepeatNewsRequest {
   int32 count = 1;
+  int32 wait_ms = 2;
 }
 
 message NewsReply {

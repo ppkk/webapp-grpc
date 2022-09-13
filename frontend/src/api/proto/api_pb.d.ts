@@ -6,6 +6,9 @@ export class RepeatNewsRequest extends jspb.Message {
   getCount(): number;
   setCount(value: number): RepeatNewsRequest;
 
+  getWaitMs(): number;
+  setWaitMs(value: number): RepeatNewsRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RepeatNewsRequest.AsObject;
   static toObject(includeInstance: boolean, msg: RepeatNewsRequest): RepeatNewsRequest.AsObject;
@@ -17,6 +20,7 @@ export class RepeatNewsRequest extends jspb.Message {
 export namespace RepeatNewsRequest {
   export type AsObject = {
     count: number,
+    waitMs: number,
   }
 }
 
